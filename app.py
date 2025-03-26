@@ -1,9 +1,13 @@
+import dash
 from core.app_instance import app
 from pages import analyse, dashboard, education, backtest
 from dash import html, dcc
 from dash.dependencies import Input, Output
 
 app.layout = html.Div([
+    dcc.Location(id='url'),
+    dash.page_container
+])
     dcc.Location(id='url'),
     html.Div(id='page-content')
 ])
