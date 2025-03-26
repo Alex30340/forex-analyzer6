@@ -1,27 +1,13 @@
 import dash
-from core.app_instance import app
-from pages import analyse, dashboard, education, backtest
-from dash import html, dcc
-from dash.dependencies import Input, Output
+from dash import Dash, html, dcc
+import dash_bootstrap_components as dbc
+
+app = Dash(__name__, use_pages=True, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 app.layout = html.Div([
     dcc.Location(id='url'),
     dash.page_container
 ])
-    dcc.Location(id='url'),
-    html.Div(id='page-content')
-])
-
-@app.callback(Output('page-content', 'children'), Input('url', 'pathname'))
-def display_page(pathname):
-    if pathname == '/dashboard':
-        return dashboard.layout
-    elif pathname == '/backtest':
-        return backtest.layout
-    elif pathname == '/education':
-        return education.layout
-    else:
-        return analyse.layout
 
 if __name__ == '__main__':
-    app.run_server(debug=False, host="0.0.0.0", port=8080)
+    app.run_server(debug=True, host='0.0.0.0', port=8080)
